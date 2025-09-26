@@ -1,0 +1,58 @@
+[
+    {
+        "id": 1,
+        "nombre": "Cortado & Croissants",
+        "descripcion": "Delicioso café de especialidad de origen colombia cortado y 2 Croissants con el mas exquisito sabor a manteca.",
+        "precio": 12000,
+        "imagen": "./src/assets/cortado-con-2-croissants.png"
+    },
+    {
+        "id": 2,
+        "nombre": "Cortado & Medialunas",
+        "descripcion": "Delicioso café de especialidad de origen colombia cortado y 3 Medialunas con el mas exquisito sabor a manteca.",
+        "precio": 15000,
+        "imagen": "./src/assets/cortado-con-3-medialunas.png"
+    },
+    {
+        "id": 3,
+        "nombre": "Cortado & Tarta de Coco",
+        "descripcion": "Delicioso café de especialidad de origen colombia cortado y 2 porciones de nuestra increible tarta de coco.",
+        "precio": 18000,
+        "imagen": "./src/assets/cortado-con-2-tarta-coco.png"
+    },
+    {
+        "id": 4,
+        "nombre": "nombre4",
+        "descripcion": "descripcion4",
+        "precio": 4,
+        "imagen": "path4"
+    },
+    {
+        "id": 5,
+        "nombre": "nombre5",
+        "descripcion": "descripcion5",
+        "precio": 5,
+        "imagen": "path5"
+    },
+    {
+        "id": 6,
+        "nombre": "nombre6",
+        "descripcion": "descripcion6",
+        "precio": 6,
+        "imagen": "path6"
+    },
+    {
+        "id": 7,
+        "nombre": "nombre7",
+        "descripcion": "descripcion7",
+        "precio": 7,
+        "imagen": "path7"
+    },
+    {
+        "id": 8,
+        "nombre": "nombre8",
+        "descripcion": "descripcion8",
+        "precio": 8,
+        "imagen": "path8"
+    }
+]
