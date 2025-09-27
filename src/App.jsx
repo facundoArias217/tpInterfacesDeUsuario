@@ -1,4 +1,3 @@
-import './App.css'
 import {NavBar} from './components'
 import {Routes, Route} from 'react-router-dom'
 import {Inicio, Carta, Carrito, ContactoYReserva} from './pages'
