@@ -2,7 +2,7 @@ import {Form} from 'react-bootstrap';
 import {Row, Col} from 'react-bootstrap';
 import {Formik} from 'formik';
 import * as yup from 'yup';
-import {Boton, FormCheck} from '../components';
+import {Boton, FormInput} from '../components';
 
 //poner id a cada checkbox o radio
 //arrglar fecha -> arreglada con validacion y settings del browser para mostrar dd/mm/yyyy
@@ -16,7 +16,8 @@ import {Boton, FormCheck} from '../components';
 //validar q la fecha sea posterior a la actual -> validado
 //validar q la fecha no sea posterior a un año o periodo despues de la fecha actual 
 //poner una franja horaria -> validado
-//poner ids a los map filasDatos, ver si se puede simplificar a un solo map
+//poner ids a los map filasDatos, ver si se puede simplificar a un solo map -> arreglado
+//mejorar el pasaje de props a los inputs
 const ContactoYReserva = () => {
     
     const cargaContacto = [
@@ -25,14 +26,14 @@ const ContactoYReserva = () => {
         {label:'Email:', controlId:'formGridEmail', formControl:{type:'email', placeholder:'usuario@ejemplo.com', name:'email'}},
         {label:'Telefono:', controlId:'formGridTelefono', formControl:{type:'text', placeholder:'Ej: 1123456789', name:'telefono'}},
         {label:'Otros datos o comentarios:', controlId:'formGridComentarios', tamaño:12, formControl:{as:'textarea', rows:4, name:'comentarios'}},
-        {label:'Quiero hacer una Reserva!', controlId:'formGridCheckboxReserva', tamaño:undefined, formControl:{type:'checkbox', name:'reserva'}},
+        {controlId:'formGridCheckboxReserva', tamaño:12, formControl:{type:'checkbox', name:'reserva', label:'Quiero hacer una Reserva!'}},
     ];
     
     const cargaReserva = [
         {label:'Fecha de la Reserva:', controlId:'formGridFechaReserva', formControl:{type:'date', name:'fecha'}},
         {label:'Hora de la Reserva:', controlId:'formGridHoraReserva', formControl:{type:'time', name:'hora'}},
         {label:'Cantidad de Personas:', controlId:'formGridComensales', formControl:{type:'text', placeholder:'Max. 10 personas', name:'comensales'}},
-        {label:'Lugar:', controlId:'formGridLugar', formControl:{type:'radio', name:'group1', label:'Interior', inline:true}},
+        {label:'Lugar:', controlId:'formGridCheckboxLugar', formControl:{type:'radio', name:'group1', inline:true}},
     ];
 
     const horaValida = (hora) =>{
@@ -75,55 +76,26 @@ const ContactoYReserva = () => {
                 then:(schema) => schema.required('Debe ingresar una cantidad'),
                 otherwise:(schema) => schema.nullable()
             }),
-            lugar:yup.boolean(),
     });
     
     const filasDatos = (datos, values, handleChange, handleBlur, errors, touched) => {
         return (
             <Row className="mb-3">
-                {datos.map(d => {
+                {datos.map((d, i) => {
                     return (
-                        <Form.Group as={Col} xs={!d.tamaño ? 6 : d.tamaño} controlId={d.controlId}>
-                            
-                            {d.controlId != 'formGridLugar' && d.controlId != 'formGridCheckboxReserva' ?
-                                <div>
-                                    <Form.Label>{d.label}</Form.Label>
-                                    <Form.Control
-                                        {...d.formControl}
-                                        value={values[d.formControl.name]}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        isInvalid={touched[d.formControl.name] && !!errors[d.formControl.name]}
-                                    />
-                                    <Form.Control.Feedback type="invalid">
-                                        {errors[d.formControl.name]}
-                                    </Form.Control.Feedback>
-                                </div>
-                                :
-                                (d.controlId != 'formGridCheckboxReserva' ?
-                                <div>
-                                    <Form.Label>{d.label}</Form.Label>
-                                    {['Interior', 'Exterior'].map((l, i) => { return <Form.Check key={i} {...d.formControl} checked={values[d.formControl.name]} />})}
-                                    {/* <Form.Check {...d.formControl} label="Exterior" /> */}
-                                    {/* <Form.Check
-                                        inline
-                                        label="Exterior"
-                                        name={d.formControl.name}
-                                        type={d.formControl.type}
-                                    /> */}
-                                </div>
-                                :
-                                    <Form.Check
-                                        type={d.formControl.type}
-                                        label={d.label}
-                                        name={d.formControl.name}
-                                        checked={values[d.formControl.name]}
-                                        onChange={handleChange}
-                                    />
-                                )
-                            }
+                        <Form.Group key={i} as={Col} xs={d.tamaño||6} controlId={d.controlId}>
+                            <FormInput
+                                formControl={d.formControl}
+                                value={values[d.formControl.name]}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                isInvalid={touched[d.formControl.name] && !!errors[d.formControl.name]}
+                                errors={errors[d.formControl.name]}
+                                checked={values[d.formControl.name]}
+                                label={d.label}
+                            />
                         </Form.Group>
-                    )
+                    ) 
                 })}
             </Row>
         )
@@ -143,7 +115,6 @@ const ContactoYReserva = () => {
                 fecha: '',
                 hora: '',
                 comensales:'',
-                lugar:true
             }}
         >
             {({ handleSubmit, handleChange, handleBlur, values, touched, errors}) => {
