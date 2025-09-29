@@ -1,8 +1,7 @@
 import {Container, Nav, Navbar} from 'react-bootstrap'
 import {Link} from 'react-router-dom';
 
-//Aclaracion: secciones y seccionesDropdown son arrays de objetos para tener el id
-//ya que react al hacer un map pide pasar como prop key=s.id al primer componente que recibe el map
+//react al hacer un map pide pasar como prop key=s.id al primer componente que recibe el map
 //y en los Nav hago s.nombre para mostrarlo
 const NavBar = () => {
     const secciones = [{id:1, nombre:'Inicio'}, {id:2, nombre:'Carta'}, {id:3, nombre:'Carrito'}, {id:4, nombre:'Contacto Y Reservas'}];

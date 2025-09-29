@@ -3,8 +3,9 @@ import {Producto} from "../components";
 
 import menu from '../platos/platos.json';
 
+//ver si como acomodar las columnas del container en pantalla completa -> arreglado
+//-------------------------------------------
 //poner un hover a cada card
-//ver si como acomodar las columnas del container en pantalla completa
 //poder ver la cantidad de cada producto en la card si ya fue añadido
 
 const Carta = ({accionBoton}) => {
