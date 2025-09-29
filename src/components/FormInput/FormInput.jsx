@@ -1,56 +1,40 @@
 import {Form} from 'react-bootstrap';
 
-const FormInput = (props) => {
+const FormInput = ({label, type, name, inline, values, setFieldValue, handleChange, handleBlur, touched, errors, placeholder, as, rows}) => {
+    console.log(values)
     const componente = {
         radio:
             <div style={{margin:20}}>
-                <Form.Label>{props.label}</Form.Label>
+                <Form.Label>{label}</Form.Label>
                 <div>
                     {['Interior', 'Exterior'].map((l, i) => {
                         return (
-                            <Form.Check key={i}
-                                type={props.formControl.type}
-                                name={props.formControl.name}
-                                inline={props.formControl.inline}
-                                label={l}
-                                value={l}
-                                defaultChecked={i==0}
-                            />
+                            <Form.Check key={i} {...{type, name, inline, label:l, defaultChecked:i==0}} />
                         )
                     })}
                 </div>
             </div>,
         checkbox:
             <Form.Check
-                type={props.formControl.type}
-                name={props.formControl.name}
-                label={props.formControl.label}
-                checked={props.checked}
-                style={{margin:20}}
+                {...{type, name, label, checked:values[name], style:{margin:20}}}
                 onChange={(e) => {
-                    props.setFieldValue(props.formControl.name, e.target.checked)
+                    setFieldValue(name, e.target.checked)
                     if (!e.target.checked) {
-                        props.setFieldValue('fecha', '');
-                        props.setFieldValue('hora', '');
-                        props.setFieldValue('comensales', '');   
+                        setFieldValue('fecha', '');
+                        setFieldValue('hora', '');
+                        setFieldValue('comensales', '');   
                     }}
                 }
             />
     }
 
     return (
-        componente[props.formControl.type] ??
+        componente[type] ??
             <div style={{margin:20}}>
-                <Form.Label>{props.label}</Form.Label>
-                <Form.Control
-                    {...props.formControl}
-                    value={props.value}
-                    onChange={props.onChange}
-                    onBlur={props.onBlur}
-                    isInvalid={props.isInvalid}
-                />
+                <Form.Label>{label}</Form.Label>
+                <Form.Control {...{type, label, placeholder, as, rows, value:values[name], onChange:handleChange, onBlur:handleBlur, isInvalid:touched[name] && !!errors[name]}} />
                 <Form.Control.Feedback type="invalid">
-                    {props.errors}
+                    {errors[name]}
                 </Form.Control.Feedback>
             </div>
     )

@@ -3,6 +3,7 @@ import {Row, Col} from 'react-bootstrap';
 import {Formik} from 'formik';
 import * as yup from 'yup';
 import {Boton, FormInput} from '../components';
+import formSchema from '../schemas/Form.schema'
 
 //poner id a cada checkbox o radio
 //arrglar fecha -> arreglada con validacion y settings del browser para mostrar dd/mm/yyyy
@@ -23,19 +24,19 @@ import {Boton, FormInput} from '../components';
 const ContactoYReserva = () => {
     
     const cargaContacto = [
-        {label:'Apellido:', controlId:'formGridApellido', formControl:{type:'text', placeholder:'Ingrese su Apellido', name:'apellido'}},
-        {label:'Nombre:', controlId:'formGridNombre', formControl:{type:'text', placeholder:'Ingrese su Nombre', name:'nombre'}},
-        {label:'Email:', controlId:'formGridEmail', formControl:{type:'email', placeholder:'usuario@ejemplo.com', name:'email'}},
-        {label:'Telefono:', controlId:'formGridTelefono', formControl:{type:'text', placeholder:'Ej: 1123456789', name:'telefono'}},
-        {label:'Otros datos o comentarios:', controlId:'formGridComentarios', tamaño:12, formControl:{as:'textarea', rows:4, name:'comentarios'}},
-        {controlId:'formGridCheckboxReserva', tamaño:12, formControl:{type:'checkbox', name:'reserva', label:'Quiero hacer una Reserva!'}},
+        {controlId:'formGridApellido', formControl:{label:'Apellido:', type:'text', placeholder:'Ingrese su Apellido', name:'apellido'}},
+        {controlId:'formGridNombre', formControl:{label:'Nombre:', type:'text', placeholder:'Ingrese su Nombre', name:'nombre'}},
+        {controlId:'formGridEmail', formControl:{label:'Email:', type:'email', placeholder:'usuario@ejemplo.com', name:'email'}},
+        {controlId:'formGridTelefono', formControl:{label:'Telefono:', type:'text', placeholder:'Ej: 1123456789', name:'telefono'}},
+        {controlId:'formGridComentarios', tamaño:12, formControl:{label:'Otros datos o comentarios:', as:'textarea', rows:4, name:'comentarios'}},
+        {tamaño:12, formControl:{controlId:'formGridCheckboxReserva', type:'checkbox', name:'reserva', label:'Quiero hacer una Reserva!'}},
     ];
     
     const cargaReserva = [
-        {label:'Fecha de la Reserva:', controlId:'formGridFechaReserva', formControl:{type:'date', name:'fecha'}},
-        {label:'Hora de la Reserva:', controlId:'formGridHoraReserva', formControl:{type:'time', name:'hora'}},
-        {label:'Cantidad de Personas:', controlId:'formGridComensales', formControl:{type:'text', placeholder:'Max. 10 personas', name:'comensales'}},
-        {label:'Lugar:', controlId:'formGridCheckboxLugar', formControl:{type:'radio', name:'group1', inline:true}},
+        {controlId:'formGridFechaReserva', formControl:{label:'Fecha de la Reserva:', type:'date', name:'fecha'}},
+        {controlId:'formGridHoraReserva', formControl:{label:'Hora de la Reserva:', type:'time', name:'hora'}},
+        {controlId:'formGridComensales', formControl:{label:'Cantidad de Personas:', type:'text', placeholder:'Max. 10 personas', name:'comensales'}},
+        {controlId:'formGridCheckboxLugar', formControl:{label:'Lugar:', type:'radio', name:'group1', inline:true}},
     ];
 
     const horaValida = (hora) =>{
@@ -93,18 +94,7 @@ const ContactoYReserva = () => {
             <Row className="mb-3">
                 {datos.map((d, i) => (
                     <Form.Group key={i} as={Col} xs={d.tamaño||6} controlId={d.controlId}>
-                        <FormInput
-                            setFieldValue={setFieldValue}
-                            values={values}
-                            formControl={d.formControl}
-                            value={values[d.formControl.name]}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            isInvalid={touched[d.formControl.name] && !!errors[d.formControl.name]}
-                            errors={errors[d.formControl.name]}
-                            checked={values[d.formControl.name]}
-                            label={d.label}
-                        />
+                        <FormInput {...{...d.formControl, values, handleChange, handleBlur, errors, touched, setFieldValue}} />
                     </Form.Group>
                 ))}
             </Row>
