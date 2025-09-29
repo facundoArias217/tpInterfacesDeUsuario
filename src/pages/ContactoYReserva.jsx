@@ -7,17 +7,19 @@ import {Boton, FormInput} from '../components';
 //poner id a cada checkbox o radio
 //arrglar fecha -> arreglada con validacion y settings del browser para mostrar dd/mm/yyyy
 //ver validaciones: apellido nombre -> agregar trim para evitar campos con espacios o solo espacios
-//telefono -> controlar que sea numerico y que empiece con 11
-//si se destilda el check de reserva borrar todos los campos de reserva 
-//ver si hay q resetear touched y errors y poder enviar solicitud
-//ver si es mas facil de hacer con useEffect
-//achicar el ancho de los inputs
-//mensaje de confirmacion con alert al enviar y limpiar formulario
+//telefono -> controlar que sea numerico y que empiece con 11 -> arreglado
 //validar q la fecha sea posterior a la actual -> validado
-//validar q la fecha no sea posterior a un año o periodo despues de la fecha actual 
+//validar q la fecha no sea posterior a un año o periodo despues de la fecha actual -> validado
 //poner una franja horaria -> validado
 //poner ids a los map filasDatos, ver si se puede simplificar a un solo map -> arreglado
+//si se destilda el check de reserva borrar todos los campos de reserva -> arreglado 
+//-----------------------------------------------------------------
+//ver si hay q resetear touched y errors y poder enviar solicitud -> no
+//ver si es mas facil de hacer con useEffect
+//achicar el ancho de los inputs -> hecho en cada comp. hacerlo global
+//mensaje de confirmacion con alert al enviar y limpiar formulario
 //mejorar el pasaje de props a los inputs
+//ver si se puede cambiar de orden los props de los inputs en cargaContacto y cargaReserva
 const ContactoYReserva = () => {
     
     const cargaContacto = [
@@ -46,14 +48,22 @@ const ContactoYReserva = () => {
         return minutos == '00' || minutos == '30';
     };
 
+    const fechaReservaTope = () => {
+        const mesTope = new Date().getMonth() + 7;
+        const fechaNuevoMes = new Date().setMonth(mesTope)
+        const fechaTope = new Date(fechaNuevoMes);
+        const fechaArg= new Intl.DateTimeFormat("es-AR").format(fechaTope);
+        return {fechaTope, fechaArg}
+    }
+
     const schema = yup.object().shape({
         apellido: yup.string().required('Debe ingresar un apellido').max(32, '${max} caracteres maximo'),
         nombre: yup.string().required('Debe ingresar un nombre').max(64, '${max} caracteres maximo'),
-        email: yup.string().email('Email inválido').required('Debe ingresar un email'),
-        telefono: yup.string().required('Debe ingresar un telefono').min(10, '${min} caracteres minimo').max(10, 'maximo ${max} caracteres'),
+        email: yup.string().email('Email inválido').matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Email inválido").required('Debe ingresar un email'),
+        telefono: yup.string().required('Debe ingresar un telefono').min(10, '${min} caracteres minimo').max(10, 'maximo ${max} caracteres').matches(/^\d+$/, 'Debe ingresar solo numeros').matches(/^11\d+$/, 'El telefono debe comenzar con 11'),
         comentarios: yup.string().max(120, '${max} caracteres maximo'),
         reserva: yup.boolean(),
-        fecha: yup.date().min(new Date(), 'La fecha debe ser posterior a la actual')
+        fecha: yup.date().min(new Date(), 'La fecha debe ser posterior a la actual').max(fechaReservaTope().fechaTope, `La fecha debe ser anterior a ${fechaReservaTope().fechaArg}`)
             .when('reserva', {
                 is:true,
                 then:(schema) => schema.required('Debe ingresar una fecha'),
@@ -78,25 +88,25 @@ const ContactoYReserva = () => {
             }),
     });
     
-    const filasDatos = (datos, values, handleChange, handleBlur, errors, touched) => {
+    const filasDatos = (datos, values, handleChange, handleBlur, errors, touched, setFieldValue) => {
         return (
             <Row className="mb-3">
-                {datos.map((d, i) => {
-                    return (
-                        <Form.Group key={i} as={Col} xs={d.tamaño||6} controlId={d.controlId}>
-                            <FormInput
-                                formControl={d.formControl}
-                                value={values[d.formControl.name]}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                isInvalid={touched[d.formControl.name] && !!errors[d.formControl.name]}
-                                errors={errors[d.formControl.name]}
-                                checked={values[d.formControl.name]}
-                                label={d.label}
-                            />
-                        </Form.Group>
-                    ) 
-                })}
+                {datos.map((d, i) => (
+                    <Form.Group key={i} as={Col} xs={d.tamaño||6} controlId={d.controlId}>
+                        <FormInput
+                            setFieldValue={setFieldValue}
+                            values={values}
+                            formControl={d.formControl}
+                            value={values[d.formControl.name]}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            isInvalid={touched[d.formControl.name] && !!errors[d.formControl.name]}
+                            errors={errors[d.formControl.name]}
+                            checked={values[d.formControl.name]}
+                            label={d.label}
+                        />
+                    </Form.Group>
+                ))}
             </Row>
         )
     };
@@ -115,24 +125,20 @@ const ContactoYReserva = () => {
                 fecha: '',
                 hora: '',
                 comensales:'',
+                group1:''
             }}
         >
-            {({ handleSubmit, handleChange, handleBlur, values, touched, errors}) => {
-                const propsBotonEnviarFormulario = {
-                    variant:'success',
-                    type:'input',
-                    style:{width:'15%', marginTop:'30px'}
-                };
-
+            {({ handleSubmit, handleChange, handleBlur, values, touched, errors, setFieldValue}) => {
                 return (
                     <Form noValidate onSubmit={handleSubmit}>
-
-                        {filasDatos(cargaContacto, values, handleChange, handleBlur, errors, touched)}
-
-                        {values.reserva && (<div>{filasDatos(cargaReserva, values, handleChange, handleBlur, errors, touched)}</div>)}
-
+                        {filasDatos(cargaContacto, values, handleChange, handleBlur, errors, touched, setFieldValue)}
+                        {values.reserva && filasDatos(cargaReserva, values, handleChange, handleBlur, errors, touched, setFieldValue)}
                         <Row className="justify-content-sm-center">
-                            <Boton {...propsBotonEnviarFormulario} texto={values.reserva ? 'Enviar Solicitud':'Enviar Datos'} />
+                            <Boton
+                                variant='success'
+                                type='input'
+                                style={{width:'15%', marginTop:'30px'}}
+                                texto={values.reserva ? 'Enviar Solicitud':'Enviar Datos'} />
                         </Row>
                     </Form>
                 )
