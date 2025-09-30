@@ -1,24 +1,28 @@
 import {Form} from 'react-bootstrap';
 
-const FormInput = ({label, type, name, inline, values, setFieldValue, handleChange, handleBlur, touched, errors, placeholder, as, rows}) => {
-    console.log(values)
+const FormInput = ({value, touched, setFieldValue, handleChange, handleBlur, ...rest}) => {
     const componente = {
         radio:
             <div style={{margin:20}}>
-                <Form.Label>{label}</Form.Label>
+                <Form.Label>{rest.label}</Form.Label>
                 <div>
-                    {['Interior', 'Exterior'].map((l, i) => {
-                        return (
-                            <Form.Check key={i} {...{type, name, inline, label:l, defaultChecked:i==0}} />
-                        )
-                    })}
+                    {['Interior', 'Exterior'].map((l, i) =>
+                        <Form.Check
+                            key={i}
+                            {...rest}
+                            label={l}
+                            defaultChecked={i==0}
+                        />
+                    )}
                 </div>
             </div>,
         checkbox:
             <Form.Check
-                {...{type, name, label, checked:values[name], style:{margin:20}}}
+                {...rest}
+                checked={value}
+                style={{margin:20}}
                 onChange={(e) => {
-                    setFieldValue(name, e.target.checked)
+                    setFieldValue(rest.name, e.target.checked)
                     if (!e.target.checked) {
                         setFieldValue('fecha', '');
                         setFieldValue('hora', '');
@@ -29,13 +33,16 @@ const FormInput = ({label, type, name, inline, values, setFieldValue, handleChan
     }
 
     return (
-        componente[type] ??
+        componente[rest.type] ??
             <div style={{margin:20}}>
-                <Form.Label>{label}</Form.Label>
-                <Form.Control {...{type, label, placeholder, as, rows, value:values[name], onChange:handleChange, onBlur:handleBlur, isInvalid:touched[name] && !!errors[name]}} />
-                <Form.Control.Feedback type="invalid">
-                    {errors[name]}
-                </Form.Control.Feedback>
+                <Form.Label>{rest.label}</Form.Label>
+                <Form.Control
+                    {...rest}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    isInvalid={touched && !!rest.errors}
+                />
+                <Form.Control.Feedback type="invalid">{rest.errors}</Form.Control.Feedback>
             </div>
     )
 };

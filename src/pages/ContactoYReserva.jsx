@@ -21,6 +21,7 @@ import formSchema from '../schemas/Form.schema'
 //mensaje de confirmacion con alert al enviar y limpiar formulario
 //mejorar el pasaje de props a los inputs
 //ver si se puede cambiar de orden los props de los inputs en cargaContacto y cargaReserva
+//revisar el check radio q pide q sea componente controlado
 const ContactoYReserva = () => {
     
     const cargaContacto = [
@@ -29,7 +30,7 @@ const ContactoYReserva = () => {
         {controlId:'formGridEmail', formControl:{label:'Email:', type:'email', placeholder:'usuario@ejemplo.com', name:'email'}},
         {controlId:'formGridTelefono', formControl:{label:'Telefono:', type:'text', placeholder:'Ej: 1123456789', name:'telefono'}},
         {controlId:'formGridComentarios', tamaño:12, formControl:{label:'Otros datos o comentarios:', as:'textarea', rows:4, name:'comentarios'}},
-        {tamaño:12, formControl:{controlId:'formGridCheckboxReserva', type:'checkbox', name:'reserva', label:'Quiero hacer una Reserva!'}},
+        {controlId:'formGridCheckboxReserva', tamaño:12, formControl:{type:'checkbox', name:'reserva', label:'Quiero hacer una Reserva!'}},
     ];
     
     const cargaReserva = [
@@ -39,71 +40,30 @@ const ContactoYReserva = () => {
         {controlId:'formGridCheckboxLugar', formControl:{label:'Lugar:', type:'radio', name:'group1', inline:true}},
     ];
 
-    const horaValida = (hora) =>{
-        const horaNumber = parseInt(hora.slice(0, 2));
-        return horaNumber >= 12 && horaNumber <= 22;
-    };
-
-    const minutosValidos = (hora) =>{
-        const minutos = hora.slice(-2);
-        return minutos == '00' || minutos == '30';
-    };
-
-    const fechaReservaTope = () => {
-        const mesTope = new Date().getMonth() + 7;
-        const fechaNuevoMes = new Date().setMonth(mesTope)
-        const fechaTope = new Date(fechaNuevoMes);
-        const fechaArg= new Intl.DateTimeFormat("es-AR").format(fechaTope);
-        return {fechaTope, fechaArg}
-    }
-
-    const schema = yup.object().shape({
-        apellido: yup.string().required('Debe ingresar un apellido').max(32, '${max} caracteres maximo'),
-        nombre: yup.string().required('Debe ingresar un nombre').max(64, '${max} caracteres maximo'),
-        email: yup.string().email('Email inválido').matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Email inválido").required('Debe ingresar un email'),
-        telefono: yup.string().required('Debe ingresar un telefono').min(10, '${min} caracteres minimo').max(10, 'maximo ${max} caracteres').matches(/^\d+$/, 'Debe ingresar solo numeros').matches(/^11\d+$/, 'El telefono debe comenzar con 11'),
-        comentarios: yup.string().max(120, '${max} caracteres maximo'),
-        reserva: yup.boolean(),
-        fecha: yup.date().min(new Date(), 'La fecha debe ser posterior a la actual').max(fechaReservaTope().fechaTope, `La fecha debe ser anterior a ${fechaReservaTope().fechaArg}`)
-            .when('reserva', {
-                is:true,
-                then:(schema) => schema.required('Debe ingresar una fecha'),
-                otherwise:(schema) => schema.nullable()
-            }),
-        hora: yup.string()
-            .when('reserva', {
-                is:true,
-                then:(schema) => schema.required('Debe ingresar un horario')
-                    .test(
-                        'hora-valida',
-                        'la hora debe estar entre las 12:00 y las 22:00 hs en intervalos de 30 minutos',
-                        (horario) => horaValida(horario) && minutosValidos(horario)
-                    ),
-                otherwise:(schema) => schema.nullable()
-            }),
-        comensales: yup.number().typeError('Debe ingresar un numero').min(1, 'El minimo es ${min} persona').max(10, 'El maximo son ${max} personas')
-            .when('reserva', {
-                is:true,
-                then:(schema) => schema.required('Debe ingresar una cantidad'),
-                otherwise:(schema) => schema.nullable()
-            }),
-    });
-    
     const filasDatos = (datos, values, handleChange, handleBlur, errors, touched, setFieldValue) => {
         return (
             <Row className="mb-3">
-                {datos.map((d, i) => (
-                    <Form.Group key={i} as={Col} xs={d.tamaño||6} controlId={d.controlId}>
-                        <FormInput {...{...d.formControl, values, handleChange, handleBlur, errors, touched, setFieldValue}} />
-                    </Form.Group>
-                ))}
+                {datos.map((d, i) => {
+                    let name = d.formControl.name
+                    return (
+                        <Form.Group key={i} as={Col} xs={d.tamaño||6} controlId={d.controlId}>
+                            <FormInput
+                            {...d.formControl}
+                            {...{setFieldValue, handleChange, handleBlur}}
+                            value={values[name]}
+                            errors={errors[name]}
+                            touched={touched[name]}
+                        />
+                        </Form.Group>
+                    )}
+                )}
             </Row>
         )
     };
 
     return (
         <Formik
-            validationSchema={schema}
+            validationSchema={formSchema}
             onSubmit={console.log}
             initialValues={{
                 apellido: '',
@@ -114,8 +74,7 @@ const ContactoYReserva = () => {
                 reserva:false,
                 fecha: '',
                 hora: '',
-                comensales:'',
-                group1:''
+                comensales:''
             }}
         >
             {({ handleSubmit, handleChange, handleBlur, values, touched, errors, setFieldValue}) => {
@@ -123,12 +82,13 @@ const ContactoYReserva = () => {
                     <Form noValidate onSubmit={handleSubmit}>
                         {filasDatos(cargaContacto, values, handleChange, handleBlur, errors, touched, setFieldValue)}
                         {values.reserva && filasDatos(cargaReserva, values, handleChange, handleBlur, errors, touched, setFieldValue)}
-                        <Row className="justify-content-sm-center">
+                        <Row className="justify-content-center">
                             <Boton
                                 variant='success'
                                 type='input'
                                 style={{width:'15%', marginTop:'30px'}}
-                                texto={values.reserva ? 'Enviar Solicitud':'Enviar Datos'} />
+                                texto={values.reserva ? 'Enviar Solicitud':'Enviar Datos'}
+                            />
                         </Row>
                     </Form>
                 )
