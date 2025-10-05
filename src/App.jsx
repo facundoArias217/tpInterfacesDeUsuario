@@ -8,6 +8,12 @@ import {useState} from 'react'
 function App() {
   const [pedido, setPedido] = useState([]);
 
+  const [pedidosAnteriores, setPedidosAnteriores] = useState([]);
+
+  const [cantPedidosHechos, setcantPedidosHechos] = useState(0);
+
+  const vaciarPedido = () => setPedido([]);
+
   const sumarProducto = (pedidoActual, productoSumar) => {
     return pedidoActual.map(p => p.id == productoSumar.id ? {...p, cantidad: p.cantidad + 1} : p);
   };
@@ -42,6 +48,16 @@ function App() {
       return !productoEncontrado ? agregarProducto(prevPedido, producto) : sumarProducto(prevPedido, producto);
     });
   };
+
+  const confirmarPedido = () => {
+      if(pedido.length === 0) return;
+      setPedidosAnteriores([...pedidosAnteriores, pedido])
+      setPedido([])
+      alert('Tu pedido ha sido confirmado, muchas gracias.')
+      setcantPedidosHechos(cantPedidosHechos + 1)
+    };
+
+
 //agregar una ruta con * y que lleve a inicio o pagina de error para cuando se escribe cualquier cosa en la url
 //y usar para alguna pagina :id como parametro
   return (
@@ -51,7 +67,7 @@ function App() {
         <Route path="/" element={<Inicio />} />
         <Route path="/Inicio" element={<Inicio />} />
         <Route path="/Carta" element={<Carta accionBoton={agregarOSumarAlPedido} />} />
-        <Route path="/Carrito" element={<Carrito pedido={pedido} botonAgregar={{agregar:sumarAlPedido, texto:'Agregar'}} botonEliminar={{eliminar:restarOEliminarDelPedido, texto:'Eliminar'}} />} />
+        <Route path="/Carrito" element={<Carrito pedido={pedido} botonAgregar={{agregar:sumarAlPedido, texto:'Agregar'}} botonEliminar={{eliminar:restarOEliminarDelPedido, texto:'Eliminar'}} vaciarPedido={vaciarPedido} confirmarPedido={confirmarPedido} cantPedidosHechos={cantPedidosHechos} pedidosAnteriores={pedidosAnteriores}/>} />
         <Route path="/Contacto Y Reservas" element={<ContactoYReserva />} />
       </Routes>
     </>
