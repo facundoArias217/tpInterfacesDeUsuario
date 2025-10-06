@@ -22,37 +22,37 @@
     },
     {
         "id": 4,
-        "nombre": "nombre4",
-        "descripcion": "descripcion4",
-        "precio": 4,
-        "imagen": "path4"
+        "nombre": "Lagrima",
+        "descripcion": "Rica taza de leche con una dosis de expresso",
+        "precio": 2000,
+        "imagen": "./src/assets/Receta-de-Cafe-Lagrima-906x1024-1287846067.jpg"
     },
     {
         "id": 5,
-        "nombre": "nombre5",
-        "descripcion": "descripcion5",
-        "precio": 5,
-        "imagen": "path5"
+        "nombre": "Submarino",
+        "descripcion": "Vaso de leche caliente con una barra de chocolate",
+        "precio": 3000,
+        "imagen": "./src/assets/submarino.jpeg"
     },
     {
         "id": 6,
-        "nombre": "nombre6",
-        "descripcion": "descripcion6",
-        "precio": 6,
-        "imagen": "path6"
+        "nombre": "Cappuccino",
+        "descripcion": "Café expresso y leche montada con vapor",
+        "precio": 2500,
+        "imagen": "./src/assets/Cappuccino.png"
     },
     {
         "id": 7,
-        "nombre": "nombre7",
-        "descripcion": "descripcion7",
-        "precio": 7,
-        "imagen": "path7"
+        "nombre": "Café Irlandés",
+        "descripcion": "Delicioso café de selección, mezclado con crema y Whisky",
+        "precio": 4000,
+        "imagen": "./src/assets/cafe-irlandes.jpg"
     },
     {
         "id": 8,
-        "nombre": "nombre8",
-        "descripcion": "descripcion8",
-        "precio": 8,
-        "imagen": "path8"
+        "nombre": "Café Americano",
+        "descripcion": "Café de especialidad de origen colombia",
+        "precio": 1500,
+        "imagen": "./src/assets/Cafe-Americano.jpg"
     }
 ]
