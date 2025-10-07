@@ -70,3 +70,12 @@
   display: flex;
   justify-content: center; /* centrado en móviles */
 }
+
+.customBadge {
+   width:fit-content;
+   height:fit-content;
+   font-size:medium
+   /*en cada card de la carta muestra el numero que
+   indica la cantidad de añadidos al carrito mas
+   grande y adapta el tamamño del componente Badge*/
+}
