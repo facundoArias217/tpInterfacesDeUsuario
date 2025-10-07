@@ -71,6 +71,15 @@
   justify-content: center; /* centrado en móviles */
 }
 
+.customBadge {
+   width:fit-content;
+   height:fit-content;
+   font-size:medium
+   /*en cada card de la carta muestra el numero que
+   indica la cantidad de añadidos al carrito mas
+   grande y adapta el tamamño del componente Badge*/
+}
+
 .navbar-custom {
    background-color: #3b2f2a;
    box-shadow: 0 3px 8px rgba(0,0,0,0.18);
