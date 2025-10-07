@@ -142,5 +142,5 @@
 .customRowCarta { /* separa en vertical las cards en page carta, agrega fondo de mismo color q inicio y lo agranda hacia abajo*/
    --bs-gutter-y:1.5rem;
    background-color: #f5ede1;
-   padding-bottom: 40px;
+   padding-bottom: 5%;
 }
