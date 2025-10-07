@@ -70,3 +70,63 @@
   display: flex;
   justify-content: center; /* centrado en móviles */
 }
+
+.navbar-custom {
+   background-color: #3b2f2a;
+   box-shadow: 0 3px 8px rgba(0,0,0,0.18);
+}
+
+.navbar-custom .brand {
+   font-weight: 700;
+   color: #b67725;
+}
+
+.nav-link-custom {
+   color: #e9dccf;
+   margin: 0 0.35rem;
+   padding: 0.5rem 0.6rem;
+   transition: color 160ms ease, transform 140ms cubic-bezier(.2,.8,.2,1), box-shadow 200ms ease, background-color 200ms ease, opacity 220ms ease;
+   border-radius: 6px;
+   opacity: 0.96;
+}
+
+
+.nav-link-custom:hover {
+   color: #d9b089;
+   transform: translateY(-1px);
+}
+
+.nav-link-custom.active {
+   color: #451f14;
+   font-weight: 700;
+   background-color: rgba(217,154,106,0.98);
+   box-shadow: inset 0 6px 14px rgba(0,0,0,0.32), 0 2px 6px rgba(59,47,42,0.12);
+   padding-bottom: 0.35rem;
+   border-bottom: 4px solid #a45b2e;
+   border-radius: 6px;
+   opacity: 1;
+   transform: translateY(2px);
+}
+
+/* Mobile: centrar los items y mayor separación cuando el collapse está abierto */
+@media (max-width: 991px) {
+   .nav-items {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      padding: 0.5rem 0;
+   }
+
+   .nav-link-custom {
+      text-align: center;
+      padding: 0.6rem 1rem;
+      font-size: 1.05rem;
+   }
+}
+
+/* Desktop: espacio entre items y ligero aumento de tipografía */
+@media (min-width: 992px) {
+   .nav-link-custom {
+      font-size: 1rem;
+   }
+}

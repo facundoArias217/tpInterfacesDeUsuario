@@ -68,7 +68,7 @@ function App() {
         <Route path="/Inicio" element={<Inicio />} />
         <Route path="/Carta" element={<Carta accionBoton={agregarOSumarAlPedido} />} />
         <Route path="/Carrito" element={<Carrito pedido={pedido} botonAgregar={{agregar:sumarAlPedido, texto:'Agregar'}} botonEliminar={{eliminar:restarOEliminarDelPedido, texto:'Eliminar'}} vaciarPedido={vaciarPedido} confirmarPedido={confirmarPedido} cantPedidosHechos={cantPedidosHechos} pedidosAnteriores={pedidosAnteriores}/>} />
-        <Route path="/Contacto Y Reservas" element={<ContactoYReserva />} />
+        <Route path="/ContactoYReserva" element={<ContactoYReserva />} />
       </Routes>
     </>
   );
