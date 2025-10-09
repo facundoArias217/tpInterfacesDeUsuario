@@ -33,9 +33,15 @@ con diseño responsivo y estilo visual consistente implementados en css.
 
 **Inicio**:
 
--Captura
+La página de Inicio busca ser una presentación atractiva de Luna & Granos Café, diseñada para captar la atención del visitante desde el primer momento. Tiene como objetivo transmitir la identidad de la cafetería  invitando al usuario a descubrir la carta y conocer más sobre la historia y los valores del local.
 
--Descripcion
+Funcionalidades y secciones:
+
+. Hero principal: muestra el nombre del café, un eslogan y un botón que dirige directamente a la carta.
+. Sección “Quiénes Somos”: breve descripción de la filosofía del lugar acompañada por una galería de imágenes que muestran el interior y ambiente del café.
+. Nuestra Historia: relato sobre el origen familiar y la inspiración italiana detrás del emprendimiento, destacando la calidad y tradición en cada taza.
+. Valores: tres pilares que resumen la propuesta del café (café de especialidad, pastelería artesanal y conexión con lo natural).
+. Concenos: invitación a visitar el local con un mapa interactivo de Google Maps que facilita la ubicación.
 
 **Carta**:
 
@@ -50,9 +56,18 @@ Los detalles de los productos seleccionados importe y cantidad pueden verse lueg
 
 **Carrito**:
 
--Captura
+Carrito de compras
 
--Descripcion
+Esta sección corresponde al del carrito de compras, en donde los usuarios, una vez elegidos los productos en la sección de la carta, pueden:
+
+    • Ver los productos agregados
+    • Agregar más productos
+    • Eliminar productos en caso de arrepentirse
+    • Ver la cantidad seleccionada
+    • Ver el total entre todos los productos
+
+Una vez confirmado el pedido, se muestra en pantalla, los pedidos realizados anteriormente, con sus respectivos nombres, cantidades y precio.
+Si nunca se hizo un pedido, te muestra un mensaje, con un enlace a la carta para poder elegir entre los productos.
 
 **Contacto y Reserva**:
 
@@ -69,9 +84,15 @@ Funcionalidades y secciones:
 
 **NavBar**:
 
--Captura
+La NavBar cumple la función de guía principal dentro del sitio, permitiendo al usuario desplazarse fácilmente entre las distintas secciones de la página. Se mantiene fija en la parte superior para garantizar un acceso rápido en todo momento y conservar la coherencia visual del sitio.
 
--Descripcion
+Funcionalidades y secciones:
+
+. Navegación dinámica: utiliza componentes de React Router DOM que permiten cambiar de página sin recargar el sitio, manteniendo la experiencia fluida propia de una SPA.
+. Diseño responsivo: se adapta automáticamente a distintos tamaños de pantalla, desplegando un menú colapsable en dispositivos móviles.
+. Enlace de marca: el logotipo “Luna & Granos Café” funciona como acceso directo a la página de inicio.
+. Indicador activo: el enlace de la sección actual se resalta visualmente para orientar al usuario.
+. Estilo personalizado: implementa clases CSS propias que mantienen la identidad visual y la armonía cromática del resto del sitio.
 
 ### Features
 - Buscador por nombre de producto en tiempo real
@@ -159,6 +180,8 @@ Funcionalidades y secciones:
 │   │   └── Boton.jsx
 │   ├── 📁 FormInput
 │   │   └── FormInput.jsx
+│   ├── 📁 Footer
+│   │   └── Footer.jsx
 │   ├── 📁 NavBar
 │   │   └── NavBar.jsx
 │   ├── 📁 Producto
