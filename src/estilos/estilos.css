@@ -1,4 +1,19 @@
 /* estilos.css */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
+
 .hero {
    background-color: #3b2f2a;
    background-size: cover;
@@ -10,10 +25,6 @@
    margin: 1%;
 }
 
-.hero .lead {
-   font-size: 1.3rem;
-   margin-bottom: 2rem;
-}
 
 .titulos {
    text-align: center;
@@ -33,7 +44,7 @@
 @media (min-width: 768px) and (max-width: 1199px) {
 
    .subtitulos {
-      font-size: 1.4rem;
+      font-size: 1.8rem;
    }
 
    .img-container {
@@ -45,18 +56,12 @@
 @media (min-width: 1200px) {
 
    .subtitulos {
-      font-size: 1.8rem;
+      font-size: 2rem;
    }
 
    .imgs-grandes {
       justify-content: flex-start;
    }
-}
-
-.imgs-grandes {
-   width: 75%;
-   height: auto;
-   border-radius: 50%;
 }
 
 .logo {
@@ -72,12 +77,18 @@
 }
 
 .parrafos {
-   text-align: justify;
+   text-align: inherit;
    margin-bottom: 2rem;
-   line-height: 1.6;
+   line-height: 1.7;
    color: #3e2723;
-   font-size: 1.2rem;
+   font-size: 1.3rem;
    font-family: 'Poppins', sans-serif;
+}
+
+.valores {
+  background-color: #f4ede4;
+  color: #4a2f1a;
+  font-weight: 600;
 }
 
 .img-container {
@@ -130,6 +141,26 @@
    color: #faf4eb !important;
    box-shadow: none !important;
 }
+
+.footer {
+  background-color: #f8f9fa; /* fondo claro igual al resto de la web */
+  padding: 30px 0;
+  border-top: 2px solid #d1cfcf;
+  text-align: center;
+}
+
+
+.footer a {
+  color: #8b5e3c; /* enlaces más claritos */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer a:hover {
+  color: #5c3d2e; /* más oscuro al hover */
+}
+
+
 
 .customBadge {
    width: fit-content;

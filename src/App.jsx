@@ -1,7 +1,8 @@
-import {NavBar} from './components'
-import {Routes, Route} from 'react-router-dom'
-import {Inicio, Carta, Carrito, ContactoYReserva} from './pages'
-import {useState} from 'react'
+import { NavBar } from './components'
+import { Routes, Route } from 'react-router-dom'
+import { Inicio, Carta, Carrito, ContactoYReserva } from './pages'
+import { useState } from 'react'
+import { Footer } from './components'
 
 //arreglar los css puestos en los componentes usando css global o modules etc
 
@@ -15,15 +16,15 @@ function App() {
   const vaciarPedido = () => setPedido([]);
 
   const sumarProducto = (pedidoActual, productoSumar) => {
-    return pedidoActual.map(p => p.id == productoSumar.id ? {...p, cantidad: p.cantidad + 1} : p);
+    return pedidoActual.map(p => p.id == productoSumar.id ? { ...p, cantidad: p.cantidad + 1 } : p);
   };
-  
+
   const restarProducto = (pedidoActual, productoRestar) => {
-    return pedidoActual.map(p => p.id == productoRestar.id ? {...p, cantidad: p.cantidad - 1} : p);
+    return pedidoActual.map(p => p.id == productoRestar.id ? { ...p, cantidad: p.cantidad - 1 } : p);
   };
 
   const agregarProducto = (pedidoActual, productoAgregar) => {
-    return [...pedidoActual, {...productoAgregar, cantidad: 1}];
+    return [...pedidoActual, { ...productoAgregar, cantidad: 1 }];
   };
 
   const eliminarProducto = (pedidoActual, productoEliminar) => {
@@ -32,13 +33,13 @@ function App() {
 
   const sumarAlPedido = (producto) => {
     setPedido((prevPedido) => {
-        return sumarProducto(prevPedido, producto);
+      return sumarProducto(prevPedido, producto);
     });
   };
 
   const restarOEliminarDelPedido = (producto) => {
     setPedido((prevPedido) => {
-        return producto.cantidad > 1 ? restarProducto(prevPedido, producto) : eliminarProducto(prevPedido, producto);
+      return producto.cantidad > 1 ? restarProducto(prevPedido, producto) : eliminarProducto(prevPedido, producto);
     });
   };
 
@@ -50,26 +51,29 @@ function App() {
   };
 
   const confirmarPedido = () => {
-      if(pedido.length === 0) return;
-      setPedidosAnteriores([...pedidosAnteriores, pedido])
-      setPedido([])
-      alert('Tu pedido ha sido confirmado, muchas gracias.')
-      setcantPedidosHechos(cantPedidosHechos + 1)
-    };
+    if (pedido.length === 0) return;
+    setPedidosAnteriores([...pedidosAnteriores, pedido])
+    setPedido([])
+    alert('Tu pedido ha sido confirmado, muchas gracias.')
+    setcantPedidosHechos(cantPedidosHechos + 1)
+  };
 
 
-//agregar una ruta con * y que lleve a inicio o pagina de error para cuando se escribe cualquier cosa en la url
-//y usar para alguna pagina :id como parametro
+  //agregar una ruta con * y que lleve a inicio o pagina de error para cuando se escribe cualquier cosa en la url
+  //y usar para alguna pagina :id como parametro
   return (
     <>
       <NavBar />
-      <Routes>
-        <Route path="/" element={<Inicio />} />
-        <Route path="/Inicio" element={<Inicio />} />
-        <Route path="/Carta" element={<Carta accionBoton={agregarOSumarAlPedido} pedido={pedido} />} />
-        <Route path="/Carrito" element={<Carrito pedido={pedido} botonAgregar={{agregar:sumarAlPedido, texto:'Agregar'}} botonEliminar={{eliminar:restarOEliminarDelPedido, texto:'Eliminar'}} vaciarPedido={vaciarPedido} confirmarPedido={confirmarPedido} cantPedidosHechos={cantPedidosHechos} pedidosAnteriores={pedidosAnteriores}/>} />
-        <Route path="/ContactoYReserva" element={<ContactoYReserva />} />
-      </Routes>
+      <main>
+        <Routes>
+          <Route path="/" element={<Inicio />} />
+          <Route path="/Inicio" element={<Inicio />} />
+          <Route path="/Carta" element={<Carta accionBoton={agregarOSumarAlPedido} pedido={pedido} />} />
+          <Route path="/Carrito" element={<Carrito pedido={pedido} botonAgregar={{ agregar: sumarAlPedido, texto: 'Agregar' }} botonEliminar={{ eliminar: restarOEliminarDelPedido, texto: 'Eliminar' }} vaciarPedido={vaciarPedido} confirmarPedido={confirmarPedido} cantPedidosHechos={cantPedidosHechos} pedidosAnteriores={pedidosAnteriores} />} />
+          <Route path="/ContactoYReserva" element={<ContactoYReserva />} />
+        </Routes>
+      </main>
+      <Footer />
     </>
   );
 };

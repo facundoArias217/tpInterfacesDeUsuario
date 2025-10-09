@@ -27,8 +27,8 @@ const Inicio = () => {
             </section>
 
             <section className="secciones">
-                <Container className="text-center py-5">
-                    <h2 className="subtitulos mb-4">Quiénes Somos</h2>
+                <Container className="text-center ">
+                    <h2 className="subtitulos">Quiénes Somos</h2>
                     <p className="parrafos mb-5">
                         Somos un equipo apasionado por el café, la pastelería artesanal y los encuentros que se dan alrededor de una mesa.
                         Nuestro espacio combina el diseño cálido con la esencia de los cafés de barrio,
@@ -83,6 +83,15 @@ const Inicio = () => {
                     </Row>
                 </Container>
             </section>
+            <section className="valores py-4 text-center">
+                <Container>
+                    <Row>
+                        <Col md={4}><h5>☕ Café de especialidad</h5></Col>
+                        <Col md={4}><h5>🍰 Pastelería artesanal</h5></Col>
+                        <Col md={4}><h5>🌿 Espacio con alma verde</h5></Col>
+                    </Row>
+                </Container>
+            </section>
             <section className="secciones">
                 <Container className="text-center">
                     <h2 className="subtitulos">Conocenos</h2>
@@ -93,7 +102,7 @@ const Inicio = () => {
                     </p>
                     <div className="map-container">
                         <iframe
-                            title="Ubicación Plaza Oeste"
+                            title="Ubicación de Luna & Granos Café"
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3282.1624000762376!2d-58.64488642425784!3d-34.65060137293751!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcb962f2cbbfff%3A0xa4f9293769dc3d4f!2sAlmenblu%20Point%20Castelar!5e0!3m2!1ses!2sar!4v1759969780097!5m2!1ses!2sar"
                             width="80%"
                             height="400"
