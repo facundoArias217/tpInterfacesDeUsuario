@@ -51,9 +51,16 @@ con diseño responsivo y estilo visual consistente implementados en css.
 
 **Contacto y Reserva**:
 
--Captura
+La página Contacto y Reserva permite a los usuarios enviar consultas, sugerencias o realizar una reserva en el café de manera sencilla y organizada. Está pensada para ofrecer una comunicación directa entre el cliente y el negocio, manteniendo la coherencia visual y funcional con el resto del sitio.
 
--Descripcion
+Funcionalidades y secciones:
+
+. Formulario principal: contiene campos para nombre y apellido, correo electrónico, teléfono, tipo de consulta o reserva y un mensaje adicional.
+. Validaciones en tiempo real: mediante las librerías Formik y Yup se controlan los campos requeridos, el formato del correo electrónico y la longitud de los textos antes de permitir el envío.
+. Mensajes de error: cada campo muestra de forma clara los errores específicos cuando el usuario introduce datos inválidos o deja campos vacíos.
+. Diseño responsivo: la estructura del formulario se adapta a distintos tamaños de pantalla para una buena experiencia tanto en computadoras como en dispositivos móviles.
+. Reinicio del formulario: una vez completado y enviado correctamente, el formulario se limpia automáticamente para permitir nuevos envíos.
+
 
 **NavBar**:
 
