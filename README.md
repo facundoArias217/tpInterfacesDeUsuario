@@ -39,9 +39,14 @@ con diseño responsivo y estilo visual consistente implementados en css.
 
 **Carta**:
 
--Captura
+En la sección carta los usuarios pueden:
 
--Descripcion
+    • Ver Todos los productos con descripciones detalladas
+    • Elegir los productos que quieren consumir
+    • Buscar por nombre o descripcion y filtrar en tiempo real
+    • Ver que productos y la cantidad añadidos al carrito
+
+Los detalles de los productos seleccionados importe y cantidad pueden verse luego en la seccion carrito.
 
 **Carrito**:
 
@@ -69,7 +74,6 @@ Funcionalidades y secciones:
 -Descripcion
 
 ### Features
-- Modo Oscuro
 - Buscador por nombre de producto en tiempo real
 
 
