@@ -21,6 +21,7 @@ const Carta = ({accionBoton, pedido}) => {
         <Container className="my-4" fluid>
             <div className="search-bar">
                 <input
+                    id='search-carta'
                     className="search-input"
                     type="search"
                     placeholder="Qué vas a tomar hoy??"
