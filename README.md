@@ -70,9 +70,15 @@ Funcionalidades y secciones:
 
 **NavBar**:
 
--Captura
+La NavBar cumple la función de guía principal dentro del sitio, permitiendo al usuario desplazarse fácilmente entre las distintas secciones de la página. Se mantiene fija en la parte superior para garantizar un acceso rápido en todo momento y conservar la coherencia visual del sitio.
 
--Descripcion
+Funcionalidades y secciones:
+
+. Navegación dinámica: utiliza componentes de React Router DOM que permiten cambiar de página sin recargar el sitio, manteniendo la experiencia fluida propia de una SPA.
+. Diseño responsivo: se adapta automáticamente a distintos tamaños de pantalla, desplegando un menú colapsable en dispositivos móviles.
+. Enlace de marca: el logotipo “Luna & Granos Café” funciona como acceso directo a la página de inicio.
+. Indicador activo: el enlace de la sección actual se resalta visualmente para orientar al usuario.
+. Estilo personalizado: implementa clases CSS propias que mantienen la identidad visual y la armonía cromática del resto del sitio.
 
 ### Features
 - Modo Oscuro
