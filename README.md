@@ -51,9 +51,18 @@ Funcionalidades y secciones:
 
 **Carrito**:
 
--Captura
+Carrito de compras
 
--Descripcion
+Esta sección corresponde al del carrito de compras, en donde los usuarios, una vez elegidos los productos en la sección de la carta, pueden:
+
+    • Ver los productos agregados
+    • Agregar más productos
+    • Eliminar productos en caso de arrepentirse
+    • Ver la cantidad seleccionada
+    • Ver el total entre todos los productos
+
+Una vez confirmado el pedido, se muestra en pantalla, los pedidos realizados anteriormente, con sus respectivos nombres, cantidades y precio.
+Si nunca se hizo un pedido, te muestra un mensaje, con un enlace a la carta para poder elegir entre los productos.
 
 **Contacto y Reserva**:
 
