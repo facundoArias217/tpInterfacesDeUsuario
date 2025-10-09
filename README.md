@@ -47,10 +47,10 @@ Funcionalidades y secciones:
 
 En la sección carta los usuarios pueden:
 
-    • Ver Todos los productos con descripciones detalladas
-    • Elegir los productos que quieren consumir
-    • Buscar por nombre o descripcion y filtrar en tiempo real
-    • Ver que productos y la cantidad añadidos al carrito
+- Ver Todos los productos con descripciones detalladas
+- Elegir los productos que quieren consumir
+- Buscar por nombre o descripcion y filtrar en tiempo real
+- Ver que productos y la cantidad añadidos al carrito
 
 Los detalles de los productos seleccionados importe y cantidad pueden verse luego en la seccion carrito.
 
@@ -95,7 +95,7 @@ Funcionalidades y secciones:
 . Estilo personalizado: implementa clases CSS propias que mantienen la identidad visual y la armonía cromática del resto del sitio.
 
 ### Features
-- Buscador por nombre de producto en tiempo real
+- Buscador por nombre o descripcion de producto en tiempo real
 
 
 ## Tecnologias
