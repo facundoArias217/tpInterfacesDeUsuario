@@ -87,7 +87,7 @@ const Inicio = () => {
                 <Container className="text-center">
                     <h2 className="subtitulos">Conocenos</h2>
                     <p className="parrafos">
-                        Te esperamos en nuestro local dentro del <strong>Plaza Oeste Shopping</strong>,
+                        Te esperamos en nuestro local de Castelar <strong>Luna & Granos Café</strong>,
                         el punto de encuentro perfecto para disfrutar un café artesanal, pastelería fresca
                         y momentos únicos en un ambiente cálido y relajado.
                     </p>
